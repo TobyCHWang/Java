@@ -1,6 +1,9 @@
 package sait.mms.application;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 
 import sait.mms.managers.MovieManagementSystem;
 
@@ -15,9 +18,21 @@ import sait.mms.managers.MovieManagementSystem;
  */
 
 public class AppDriver {
+	private static ArrayList<Integer> books;
 	public static void main(String[] args) throws SQLException {
+		books = new ArrayList<>();
+		for(int i=0;i<10;i++) {
+			try {
+				books.add(i);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		System.out.println(books);
 		
-		new MovieManagementSystem();
 		
 	}
+	
+	
 }
