@@ -20,16 +20,8 @@ import sait.mms.managers.MovieManagementSystem;
 public class AppDriver {
 	private static ArrayList<Integer> books;
 	public static void main(String[] args) throws SQLException {
-		books = new ArrayList<>();
-		for(int i=0;i<10;i++) {
-			try {
-				books.add(i);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		System.out.println(books);
+		System.out.println("first:"+args[0].charAt(0));
+		System.out.println("first:"+args[1]);
 		
 		
 	}
