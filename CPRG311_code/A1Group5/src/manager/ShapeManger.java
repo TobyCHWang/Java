@@ -12,6 +12,12 @@ import java.util.Comparator;
 import problemdomain.AreaCompare;
 import problemdomain.Shape;
 import problemdomain.VolumeCompare;
+import utilities.BubbleSort;
+import utilities.HeapSort;
+import utilities.InsertionSort;
+import utilities.MergeSort;
+import utilities.QuickSort;
+import utilities.SelectionSort;
 
 public class ShapeManger {
 	
@@ -58,17 +64,20 @@ public class ShapeManger {
 		
 		switch (compareType) {
 		case "a":
+			System.out.println("Type: Area");
 			
 			switchSortByArea(arrayList);
 			printArrayByArea(shapeArray);
 			
 			break;
 		case "h":
+			System.out.println("Type: Height");
 			switchSortByHeight(arrayList);
 			printArrayByHeight(shapeArray);
 			
 			break;
 		case "v":
+			System.out.println("Type: Volume");
 			switchSortByVolume(arrayList);
 			printArrayByVolume(shapeArray);
 			
@@ -90,42 +99,51 @@ public class ShapeManger {
 		switch (compareSort) {
 		case "b":
 			startTime=System.currentTimeMillis();
-			bubbleSort(shapeArray);
+			BubbleSort.bubbleSort(shapeArray);
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
-			System.out.println(elapsedTime);
+			System.out.println("Sort:Bubble sort and ElapseTime:"+elapsedTime);
 
 			break;
 		case "s":
 			startTime=System.currentTimeMillis();
-			selectionSort(shapeArray);
+			SelectionSort.selectionSort(shapeArray);
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
-			System.out.println(elapsedTime);
+			System.out.println("Sort:Selection sort and ElapseTime:"+elapsedTime);
 
 			break;
 		case "i":
 			startTime=System.currentTimeMillis();
-			insertionSort(shapeArray);
+			InsertionSort.insertionSort(shapeArray);
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
-			System.out.println(elapsedTime);
+			System.out.println("Sort:Insertion sort and ElapseTime:"+elapsedTime);
 
 			break;
 		case "m":
 			startTime=System.currentTimeMillis();
-			mergeSort(shapeArray);
+			MergeSort.mergeSort(shapeArray);
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
-			System.out.println(elapsedTime);
+			System.out.println("Sort:Merge sort and ElapseTime:"+elapsedTime);
 
 			break;
 		case "q":
 			startTime=System.currentTimeMillis();
-			quickSort(shapeArray);
+			QuickSort.quickSort(shapeArray);
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
-			System.out.println(elapsedTime);
+			System.out.println("Sort:Quick sort and ElapseTime:"+elapsedTime);
+
+			break;
+			
+		case "z":
+			startTime=System.currentTimeMillis();
+			HeapSort.heapSort(shapeArray);
+			endTime=System.currentTimeMillis();
+			elapsedTime=endTime-startTime;
+			System.out.println("Sort:Heap sort and ElapseTime:"+elapsedTime);
 
 			break;
 
@@ -143,42 +161,51 @@ public class ShapeManger {
 		switch (compareSort) {
 		case "b":
 			startTime=System.currentTimeMillis();
-			bubbleSort(shapeArray, ac);
+			BubbleSort.bubbleSort(shapeArray, ac);
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
-			System.out.println(elapsedTime);
+			System.out.println("Sort:Bubble sort and ElapseTime:"+elapsedTime);
 
 			break;
 		case "s":
 			startTime=System.currentTimeMillis();
-			selectionSort(shapeArray, ac);
+			SelectionSort.selectionSort(shapeArray, ac);
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
-			System.out.println(elapsedTime);
+			System.out.println("Sort:Selection sort and ElapseTime:"+elapsedTime);
 
 			break;
 		case "i":
 			startTime=System.currentTimeMillis();
-			insertionSort(shapeArray, ac);
+			InsertionSort.insertionSort(shapeArray, ac);
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
-			System.out.println(elapsedTime);
+			System.out.println("Sort:Insertion sort and ElapseTime:"+elapsedTime);
 
 			break;
 		case "m":
 			startTime=System.currentTimeMillis();
-			mergeSort(shapeArray, ac);
+			MergeSort.mergeSort(shapeArray, ac);
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
-			System.out.println(elapsedTime);
+			System.out.println("Sort:Merge sort and ElapseTime:"+elapsedTime);
 
 			break;
 		case "q":
 			startTime=System.currentTimeMillis();
-			quickSort(shapeArray, ac);
+			QuickSort.quickSort(shapeArray, ac);
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
-			System.out.println(elapsedTime);
+			System.out.println("Sort:Quick sort and ElapsedTime:"+elapsedTime);
+			
+			break;
+			
+		case "z":
+			startTime=System.currentTimeMillis();
+			HeapSort.heapSort(shapeArray,ac);
+			endTime=System.currentTimeMillis();
+			elapsedTime=endTime-startTime;
+			System.out.println("Sort:Heap sort and ElapseTime:"+elapsedTime);
 
 			break;
 
@@ -196,42 +223,51 @@ public class ShapeManger {
 		switch (compareSort) {
 		case "b":
 			startTime=System.currentTimeMillis();
-			bubbleSort(shapeArray, vc);
+			BubbleSort.bubbleSort(shapeArray, vc);
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
-			System.out.println(elapsedTime);
+			System.out.println("Sort:Bubble sort and ElapseTime:"+elapsedTime);
 
 			break;
 		case "s":
 			startTime=System.currentTimeMillis();
-			selectionSort(shapeArray, vc);
+			SelectionSort.selectionSort(shapeArray, vc);
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
-			System.out.println(elapsedTime);
+			System.out.println("Sort:Selection sort and ElapseTime:"+elapsedTime);
 
 			break;
 		case "i":
 			startTime=System.currentTimeMillis();
-			insertionSort(shapeArray, vc);
+			InsertionSort.insertionSort(shapeArray, vc);
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
-			System.out.println(elapsedTime);
+			System.out.println("Sort:Insertion sort and ElapseTime:"+elapsedTime);
 
 			break;
 		case "m":
 			startTime=System.currentTimeMillis();
-			mergeSort(shapeArray, vc);
+			MergeSort.mergeSort(shapeArray, vc);
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
-			System.out.println(elapsedTime);
+			System.out.println("Sort:Merge sort and ElapseTime:"+elapsedTime);
 
 			break;
 		case "q":
 			startTime=System.currentTimeMillis();
-			quickSort(shapeArray, vc);
+			QuickSort.quickSort(shapeArray, vc);
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
-			System.out.println(elapsedTime);
+			System.out.println("Sort:Quick sort and ElapseTime:"+elapsedTime);
+
+			break;
+			
+		case "z":
+			startTime=System.currentTimeMillis();
+			HeapSort.heapSort(shapeArray,vc);
+			endTime=System.currentTimeMillis();
+			elapsedTime=endTime-startTime;
+			System.out.println("Sort:Heap sort and ElapseTime:"+elapsedTime);
 
 			break;
 
@@ -245,26 +281,29 @@ public class ShapeManger {
 //	By height
 	
 	private void printArrayByHeight(Shape[] arr) {
-		for(int i=0;i<arr.length;i+=1000) {
-			System.out.println(arr[i].getHeight());
+		System.out.println("The first element is "+arr[0].getHeight());
+		for(int i=1000;i<arr.length;i+=1000) {
+			System.out.println(i+" value: "+arr[i].getHeight());
 		}
-		System.out.println(arr[arr.length-1].getHeight());
+		System.out.println("The last element is "+arr[arr.length-1].getHeight());
 	}
 
 	//By area
 	private void printArrayByArea(Shape[] arr) {
-		for(int i=0;i<arr.length;i+=1000) {
-			System.out.println(arr[i].calcBaseArea());
+		System.out.println("The first element is "+arr[0].calcBaseArea());
+		for(int i=1000;i<arr.length;i+=1000) {
+			System.out.println(i+" value: "+arr[i].calcBaseArea());
 		}
-		System.out.println(arr[arr.length-1].calcBaseArea());
+		System.out.println("The last element is "+arr[arr.length-1].calcBaseArea());
 	}
 	
 	//By volume
 	private void printArrayByVolume(Shape[] arr) {
-		for(int i=0;i<arr.length;i+=1000) {
-			System.out.println(arr[i].calcVolume());
+		System.out.println("The first element is "+arr[0].calcVolume());
+		for(int i=1000;i<arr.length;i+=1000) {
+			System.out.println(i+" value: "+arr[i].calcVolume());
 		}
-		System.out.println(arr[arr.length-1].calcVolume());
+		System.out.println("The last element is "+arr[arr.length-1].calcVolume());
 	}
 	
 	
@@ -313,141 +352,21 @@ public class ShapeManger {
 		
 	}
 	
-	//bubble sort ref:https://examples.javacodegeeks.com/bubble-sort-java-algorithm-code-example/
-	//comparable descend
-	 private static<T extends Comparable<? super T>> void bubbleSort(T []arr){
-	        int left = 0;
-	        int right = arr.length-1;
-	        // the outer loop, runs from right to left
-	        for(int i=right;i>1;i--){
-	            // the inner loops, runs from left to the right, limited by the outer loop
-	            for(int j=left;j<i;j++){
-	                // if the left item is smaller than the right one, swaps
-	                if(((Comparable<? super T>)arr[j]).compareTo(arr[j+1]) < 0){
-	                    swap(arr,j, j+1);
-	                }
-	            }
-	        }
-	    }
-	 
-	 //Comparator descend
-	 
-	 private static<T> void bubbleSort(T []arr,Comparator<? super T>comparator){
-	        int left = 0;
-	        int right = arr.length-1;
-	        // the outer loop, runs from right to left
-	        for(int i=right;i>1;i--){
-	            // the inner loops, runs from left to the right, limited by the outer loop
-	            for(int j=left;j<i;j++){
-	                // if the left item is smaller than the right one, swaps
-	                if(comparator.compare(arr[j], arr[j+1]) < 0){
-	                    swap(arr,j, j+1);
-	                }
-	            }
-	        }
-	    }
 	
 	
-	// This method is used to swap the values between the two given index
-    private static void swap(Object []a, int left,int right){
-        Object temp = a[left];
-        a[left] = a[right];
-        a[right] = temp;
-    }
 	
-    //Selection sort https://www.geeksforgeeks.org/selection-sort/
-    
-    //comparable descend
-    private static<T extends Comparable<? super T>> void selectionSort(T []arr){
-    	
-    	int size = arr.length;
-		for (int i = 0; i < size - 1; i++) {
-			int min = i;
-			for (int j = i + 1; j < size; j++) {
-				if (((Comparable<? super T>)arr[j]).compareTo(arr[min]) < 0) {
-					swap(arr, j, min);
-				}
-			}
-			
-		}
-    		
-    }
-    
-    //Comparator descend
-    private static<T> void selectionSort(T []arr,Comparator<? super T>comparator){
-    	
+	
+	
 
-    	int size = arr.length;
-		for (int i = 0; i < size - 1; i++) {
-			int min = i;
-			for (int j = i + 1; j < size; j++) {
-				if (comparator.compare(arr[j], arr[min]) < 0) {
-					swap(arr, j, min);
-				}
-			}
-			
-		}
-    	
-    }
+	
+	
     
-    //Insertion sort https://www.programiz.com/dsa/insertion-sort
     
-  //comparable descend
-    private static<T extends Comparable<? super T>> void insertionSort(T []arr){
-    	int size = arr.length;
-		for (int step = 1; step < size; step++) {
-			T key = (T) arr[step];
-			int j = step - 1;
-			while (j >= 0 && ((Comparable<? super T>)arr[j]).compareTo(key) < 0) {
-				// For ascending order, change key> arr[j] to key< arr[j].
-				arr[j + 1] = arr[j];
-				j--;
-			}
-			arr[j + 1] = key;
-		}
-    	
-    }
     
-    //Comparator descend
-    private static<T> void insertionSort(T []arr,Comparator<? super T>comparator){
-    	
-    	int size = arr.length;
-		for (int step = 1; step < size; step++) {
-			T key = (T) arr[step];
-			int j = step - 1;
-			while (j >= 0 && (comparator.compare(arr[j], key) < 0)) {
-				// For ascending order, change key> arr[j] to key< arr[j].
-				arr[j + 1] = arr[j];
-				j--;
-			}
-			arr[j + 1] = key;
-		}
-    	
-    }
     
-    //Merge sort
     
-  //comparable descend
-    private static<T extends Comparable<? super T>> void mergeSort(T []arr){
-    	
-    }
+
     
-    //Comparator descend
-    private static<T> void mergeSort(T []arr,Comparator<? super T>comparator){
-    	
-    }
-    
-    //Quick sort
-    
-  //comparable descend
-    private static<T extends Comparable<? super T>> void quickSort(T []arr){
-    	
-    }
-    
-    //Comparator descend
-    private static<T> void quickSort(T []arr,Comparator<? super T>comparator){
-    	
-    }
     
     
     //student’s choice of sorting algorithm
