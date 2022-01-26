@@ -28,6 +28,7 @@ public class ShapeManger {
 	private long startTime;
 	private long endTime;
 	private long elapsedTime;
+	private boolean condition=true;
 	
 //	only test need modify
 	public ShapeManger(ArrayList<String> arrayList) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, IOException {
@@ -43,58 +44,77 @@ public class ShapeManger {
 		int typeIndex=0;
 		sortIndex=0;
 		String filePath;
-		for (int i = 0; i < arrayList.size(); i++) {
-			char aChart = arrayList.get(i).charAt(1);
-			char lowerChart = Character.toLowerCase(aChart);
-			if (Character.compare(lowerChart, 'f') == 0) {
-				fileIndex = i;
-			}else if(Character.compare(lowerChart, 't') == 0){
-				typeIndex=i;
-			}else if(Character.compare(lowerChart, 's') == 0) {
-				sortIndex=i;
+			for (int i = 0; i < arrayList.size(); i++) {
+				char aChart = arrayList.get(i).charAt(1);
+				char lowerChart = Character.toLowerCase(aChart);
+				if (Character.compare(lowerChart, 'f') == 0) {
+					fileIndex = i;
+				}else if(Character.compare(lowerChart, 't') == 0){
+					typeIndex=i;
+				}else if(Character.compare(lowerChart, 's') == 0) {
+					sortIndex=i;
+				}
 			}
+			
+			
+			
+			filePath=arrayList.get(fileIndex).substring(2,arrayList.get(fileIndex).length());
+			loadFile(filePath);
+			
+//			h a condition, sort condition
+			String compareType=arrayList.get(typeIndex).substring(2,arrayList.get(typeIndex).length()).toLowerCase().replace("\"", "").trim();
+		
+			
+				switch (compareType) {
+				case "a":
+					System.out.println("Type: Area");
+					condition=switchSortByArea(arrayList);
+					if(condition) {
+						printArrayByArea(shapeArray);
+					}else {
+						System.out.println("Wrong sort argument");
+					}
+					
+					
+					break;
+				case "h":
+					System.out.println("Type: Height");
+					condition=switchSortByHeight(arrayList);
+					if(condition) {
+						printArrayByHeight(shapeArray);
+					}else {
+						System.out.println("Wrong sort argument");
+					}
+					
+					
+					break;
+				case "v":
+					System.out.println("Type: Volume");
+					condition=switchSortByVolume(arrayList);
+					if(condition) {
+						printArrayByVolume(shapeArray);
+					}else {
+						System.out.println("Wrong sort argument");
+					}
+					
+					
+					break;
+
+				default:
+					System.out.println("Type Argument is wrong, Try Again");
+					break;
+				}
+			
 		}
 		
-		filePath=arrayList.get(fileIndex).substring(2,arrayList.get(fileIndex).length());
-		loadFile(filePath);
-		
-//		h a condition, sort condition
-		String compareType=arrayList.get(typeIndex).substring(2,arrayList.get(typeIndex).length()).toLowerCase();
-	
-		
-		switch (compareType) {
-		case "a":
-			System.out.println("Type: Area");
 			
-			switchSortByArea(arrayList);
-			printArrayByArea(shapeArray);
-			
-			break;
-		case "h":
-			System.out.println("Type: Height");
-			switchSortByHeight(arrayList);
-			printArrayByHeight(shapeArray);
-			
-			break;
-		case "v":
-			System.out.println("Type: Volume");
-			switchSortByVolume(arrayList);
-			printArrayByVolume(shapeArray);
-			
-			break;
 
-		default:
-			System.out.println("error");
-			break;
-		}
-		
-
-	}
 	
 	//sort switch methodByheight
 	
-	private void switchSortByHeight(ArrayList<String> arrayList) {
+	private boolean switchSortByHeight(ArrayList<String> arrayList) {
 		String compareSort=arrayList.get(sortIndex).substring(2,arrayList.get(sortIndex).length()).toLowerCase();
+		
 		
 		switch (compareSort) {
 		case "b":
@@ -103,7 +123,7 @@ public class ShapeManger {
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
 			System.out.println("Sort:Bubble sort and ElapseTime:"+elapsedTime);
-
+			condition=true;
 			break;
 		case "s":
 			startTime=System.currentTimeMillis();
@@ -111,7 +131,7 @@ public class ShapeManger {
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
 			System.out.println("Sort:Selection sort and ElapseTime:"+elapsedTime);
-
+			condition=true;
 			break;
 		case "i":
 			startTime=System.currentTimeMillis();
@@ -127,7 +147,7 @@ public class ShapeManger {
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
 			System.out.println("Sort:Merge sort and ElapseTime:"+elapsedTime);
-
+			condition=true;
 			break;
 		case "q":
 			startTime=System.currentTimeMillis();
@@ -135,7 +155,7 @@ public class ShapeManger {
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
 			System.out.println("Sort:Quick sort and ElapseTime:"+elapsedTime);
-
+			condition=true;
 			break;
 			
 		case "z":
@@ -144,17 +164,18 @@ public class ShapeManger {
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
 			System.out.println("Sort:Heap sort and ElapseTime:"+elapsedTime);
-
+			condition=true;
 			break;
 
 		default:
-			System.out.println("error");
+			condition=false;
 			break;
 		}
+		return condition;
 	}
 	
 	//sort switch methodByArea
-	private void switchSortByArea(ArrayList<String> arrayList) {
+	private boolean switchSortByArea(ArrayList<String> arrayList) {
 		String compareSort=arrayList.get(sortIndex).substring(2,arrayList.get(sortIndex).length()).toLowerCase();
 		AreaCompare ac=new AreaCompare();
 		
@@ -165,7 +186,7 @@ public class ShapeManger {
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
 			System.out.println("Sort:Bubble sort and ElapseTime:"+elapsedTime);
-
+			condition=true;
 			break;
 		case "s":
 			startTime=System.currentTimeMillis();
@@ -173,7 +194,7 @@ public class ShapeManger {
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
 			System.out.println("Sort:Selection sort and ElapseTime:"+elapsedTime);
-
+			condition=true;
 			break;
 		case "i":
 			startTime=System.currentTimeMillis();
@@ -189,7 +210,7 @@ public class ShapeManger {
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
 			System.out.println("Sort:Merge sort and ElapseTime:"+elapsedTime);
-
+			condition=true;
 			break;
 		case "q":
 			startTime=System.currentTimeMillis();
@@ -206,18 +227,19 @@ public class ShapeManger {
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
 			System.out.println("Sort:Heap sort and ElapseTime:"+elapsedTime);
-
+			condition=true;
 			break;
 
 		default:
-			System.out.println("error");
+			condition=false;
 			break;
 		}
+		return condition;
 	}
 	
 	//sort switch methodByVolume
 	
-	private void switchSortByVolume(ArrayList<String> arrayList) {
+	private boolean switchSortByVolume(ArrayList<String> arrayList) {
 		String compareSort=arrayList.get(sortIndex).substring(2,arrayList.get(sortIndex).length()).toLowerCase();
 		VolumeCompare vc=new VolumeCompare();
 		switch (compareSort) {
@@ -227,7 +249,7 @@ public class ShapeManger {
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
 			System.out.println("Sort:Bubble sort and ElapseTime:"+elapsedTime);
-
+			condition=true;
 			break;
 		case "s":
 			startTime=System.currentTimeMillis();
@@ -235,7 +257,7 @@ public class ShapeManger {
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
 			System.out.println("Sort:Selection sort and ElapseTime:"+elapsedTime);
-
+			condition=true;
 			break;
 		case "i":
 			startTime=System.currentTimeMillis();
@@ -251,7 +273,7 @@ public class ShapeManger {
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
 			System.out.println("Sort:Merge sort and ElapseTime:"+elapsedTime);
-
+			condition=true;
 			break;
 		case "q":
 			startTime=System.currentTimeMillis();
@@ -268,13 +290,14 @@ public class ShapeManger {
 			endTime=System.currentTimeMillis();
 			elapsedTime=endTime-startTime;
 			System.out.println("Sort:Heap sort and ElapseTime:"+elapsedTime);
-
+			condition=true;
 			break;
 
 		default:
-			System.out.println("error");
+			condition=false;
 			break;
 		}
+		return condition;
 	}
 	
 	
