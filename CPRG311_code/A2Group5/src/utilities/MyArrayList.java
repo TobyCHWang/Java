@@ -1,6 +1,7 @@
 package utilities;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class MyArrayList<E> implements ListADT<E> {
@@ -9,6 +10,7 @@ public class MyArrayList<E> implements ListADT<E> {
 
 	// Attributes
 	private E[] array;
+	private E[] largeArray;
 	private int size;
 
 	// Constructor
@@ -19,14 +21,20 @@ public class MyArrayList<E> implements ListADT<E> {
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 
 	// size is zero
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		if (array != null) {
+			for (int i = 0; i < array.length; i++) {
+				array[i] = null;
+				size = 0;
+			}
+		}else {
+			return;
+		}
 
 	}
 
@@ -41,9 +49,9 @@ public class MyArrayList<E> implements ListADT<E> {
 		}
 		// check for capacity
 		if (size == array.length) {
-			// TODO create a new array (bigger than the original) x2
-			// use a loop to copy everything from the original array into the new array
-			// get array to reference to the new array
+			largeArray=Arrays.copyOf(array, array.length*2);
+			array=largeArray;
+				
 		}
 		// TODO insert toAdd into index position (requires a loop)
 		return true;
@@ -57,9 +65,8 @@ public class MyArrayList<E> implements ListADT<E> {
 		}
 		// check for capacity
 		if (size == array.length) {
-			// TODO create a new array (bigger than the original) x2
-			// use a loop to copy everything from the original array into the new array
-			// get array to reference to the new array
+			largeArray=Arrays.copyOf(array, array.length*2);
+			array=largeArray;
 		}
 		array[size] = toAdd;
 		size++;

@@ -54,7 +54,14 @@ class MyArrayListTest {
 	 */
 	@Test
 	void testClear() {
-		fail("Not yet implemented");
+		list.add("A");
+		list.add("B");
+		list.add("C");
+		list.clear();
+		assertEquals(0, list.size());
+		for(int i=0;i<list.size();i++) {
+			assertNull(list.get(i));
+		}
 	}
 
 	/**
@@ -104,6 +111,7 @@ class MyArrayListTest {
 		assertEquals(3, list.size());
 		assertEquals("B", list.get(1));
 	}
+	
 
 	/**
 	 * Test method for {@link utilities.MyArrayList#add(int, java.lang.Object)}.
