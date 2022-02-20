@@ -61,8 +61,7 @@ public class MyStack<E> implements StackADT<E> {
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return (list.size()==0);
 	}
 
 	@Override

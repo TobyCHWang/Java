@@ -59,9 +59,7 @@ class MyArrayListTest {
 		list.add("C");
 		list.clear();
 		assertEquals(0, list.size());
-		for(int i=0;i<list.size();i++) {
-			assertNull(list.get(i));
-		}
+		
 	}
 
 	/**

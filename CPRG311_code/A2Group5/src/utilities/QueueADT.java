@@ -8,12 +8,14 @@ public interface QueueADT<E> {
      * Adds one element to the rear of this queue. 
      * @param element  the element to be added to the rear of the queue 
      * @return true if element is added successfully. 
+     * @exception if element is null 
      */
-    public boolean enqueue(E element);
+    public boolean enqueue(E element) throws NullPointerException;
     
     /**  
      * Removes and returns the element at the front of this queue.
      * @return the element at the front of the queue
+     * @exception EmptyQueueException if queue is empty 
      */
     public E dequeue() throws EmptyQueueException;
     
@@ -29,10 +31,10 @@ public interface QueueADT<E> {
      * @return <code>true</code> if Two queues must contain equal items appearing in the same order.
      */
     
-    public boolean equals( QueueADT<E> that);
+    public boolean equals( QueueADT<E> that) throws NullPointerException;
     
     /**
-     * 
+     * optional
      */
     public Iterator<E> iterator();
     
@@ -45,7 +47,7 @@ public interface QueueADT<E> {
     /**
      * 
      */
-    public E[] toArray(E[] copy) throws EmptyQueueException;
+    public E[] toArray(E[] copy) throws NullPointerException;
     
     /**
      * 

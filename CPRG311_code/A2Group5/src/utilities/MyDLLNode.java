@@ -1,14 +1,33 @@
 package utilities;
 
 public class MyDLLNode<E> {
+	private E information;
 	private MyDLLNode<E> prev;
 	private MyDLLNode<E> next;
-	private E information;
+	
 	
 	//constructor 
 	public MyDLLNode(E information) {
 		this.information=information;
 	}
+	
+	
+
+
+
+	/**
+	 * @param information
+	 * @param prev
+	 * @param next
+	 */
+	public MyDLLNode(E information, MyDLLNode<E> prev, MyDLLNode<E> next) {
+		super();
+		this.information = information;
+		this.prev = prev;
+		this.next = next;
+	}
+
+
 
 	/**
 	 * @return the prev

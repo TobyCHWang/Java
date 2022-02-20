@@ -9,7 +9,7 @@ public interface StackADT<E> {
      * @param element element to be pushed onto the stack
      * @return true if element is pushed successfully. 
      */
-    public boolean push(E element);
+    public boolean push(E element) throws NullPointerException;
     
     /**  
      * Removes and returns the top element from this stack. 
@@ -28,7 +28,7 @@ public interface StackADT<E> {
      * @return true if two stacks contain equal items
      */
     
-    public boolean equals( StackADT<E> that);
+    public boolean equals( StackADT<E> that) throws NullPointerException;
     
     /**
 	 * Returns an iterator over the elements in this list, in proper sequence.
@@ -54,7 +54,7 @@ public interface StackADT<E> {
 	 * @throws NullPointerException
 	 * 			If the specified array is <code>null</code>.
 	 */
-	public E[] toArray( E[] copy) throws EmptyStackException;
+	public E[] toArray( E[] copy) throws NullPointerException;
 	
 	
 	/**
@@ -69,10 +69,10 @@ public interface StackADT<E> {
 	
 	
 	/**
-	 * 
+	 * -1 not found
 	 */
 	
-	public int search(E obj) throws EmptyStackException;
+	public int search(E obj) throws NullPointerException;
 	
 	
 	/**
@@ -88,7 +88,7 @@ public interface StackADT<E> {
 	 * 			list implementation does not support having 
 	 * 			<code>null</code> elements.
 	 */
-	public boolean contains( E obj ) throws EmptyStackException;
+	public boolean contains( E obj ) throws NullPointerException;
     
     
     /**  
