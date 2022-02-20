@@ -1,5 +1,7 @@
 package utilities;
 
+import exception.EmptyQueueException;
+
 public class MyQueue<E> implements QueueADT<E> {
 	
 	private MyDLL<E> list;
@@ -16,37 +18,53 @@ public class MyQueue<E> implements QueueADT<E> {
 	}
 
 	@Override
-	public E dequeue() {
+	public E dequeue() throws EmptyQueueException {
 		return list.remove(0);
 	}
 
 	@Override
-	public E peek() {
+	public E peek() throws EmptyQueueException{
 		return list.get(0);
 	}
 
 	@Override
-	public boolean equals(QueueADT<E> that) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean equals(QueueADT<E> that) throws NullPointerException {
+		boolean condition=false;
+		
+		for(int i=list.size()-1;i>=0;i--) {
+			try {
+				if(list.get(i).equals(that.peek())) {
+					condition=true;
+					that.dequeue();
+				}else {
+					condition=false;
+				}
+			} catch (IndexOutOfBoundsException e) {
+				
+				e.printStackTrace();
+			} catch (EmptyQueueException e) {
+				
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return condition;
 	}
 
 	@Override
 	public Iterator<E> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return list.iterator();
 	}
 
 	@Override
 	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
+		return list.toArray();
 	}
 
 	@Override
 	public E[] toArray(E[] copy) {
-		// TODO Auto-generated method stub
-		return null;
+		return list.toArray(copy);
 	}
 
 	@Override
@@ -56,14 +74,13 @@ public class MyQueue<E> implements QueueADT<E> {
 
 	@Override
 	public void dequeueAll() {
-		// TODO Auto-generated method stub
+		list.clear();
 		
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return (list.size()==0);
 	}
 
 	@Override

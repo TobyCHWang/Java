@@ -107,6 +107,7 @@ public class MyArrayList<E> implements ListADT<E> {
 				array[i]=array[i+1];
 			}
 		}
+		size--;
 		return (E) array;
 	}
 
@@ -124,8 +125,13 @@ public class MyArrayList<E> implements ListADT<E> {
 			        }
 			       
 			      }
+			      
 			    }
+			 
+			 
 		}
+		size--;
+		
 		return (E) array;
 	}
 
@@ -152,7 +158,7 @@ public class MyArrayList<E> implements ListADT<E> {
 			throw new NullPointerException();
 		}
 		
-		for(int i=0;i<array.length-1;i++) {
+		for(int i=0;i<array.length;i++) {
 			if(array[i]==(toFind)) {
 				return true;
 			}

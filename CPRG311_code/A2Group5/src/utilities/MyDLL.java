@@ -250,7 +250,7 @@ public class MyDLL<E> implements ListADT<E> {
 			}
 			return toHold;
 		}else {
-				Object[] elementObject=new Object[size];
+				Object[] elementObject=(E[])new Object[size];
 				int pos=0;
 				Iterator<E> iterator=this.iterator();
 				while(iterator.hasNext()) {
