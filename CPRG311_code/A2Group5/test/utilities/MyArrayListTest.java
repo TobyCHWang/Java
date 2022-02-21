@@ -156,7 +156,13 @@ class MyArrayListTest {
 	@Test
 	void testAddE() {
 		// TODO 3 methods
-		fail("Not yet implemented");
+		list.add("A");
+		list.add("B");
+		list.add("C");
+		assertEquals(3, list.size());
+		assertEquals("A", list.get(0));
+		assertEquals("B", list.get(1));
+		assertEquals("C", list.get(2));
 	}
 
 	/**
@@ -164,7 +170,25 @@ class MyArrayListTest {
 	 */
 	@Test
 	void testAddAll() {
-		fail("Not yet implemented");
+		MyArrayList<String> additonalArrayList=new MyArrayList<>();
+		list.add("A");
+		list.add("B");
+		list.add("C");
+		list.add("D");
+		additonalArrayList.add("E");
+		additonalArrayList.add("F");
+		additonalArrayList.add("G");
+		additonalArrayList.add("H");
+		list.addAll(additonalArrayList);
+		assertEquals(8, list.size());
+		assertEquals("A", list.get(0));
+		assertEquals("B", list.get(1));
+		assertEquals("C", list.get(2));
+		assertEquals("D", list.get(3));
+		assertEquals("E", list.get(4));
+		assertEquals("F", list.get(5));
+		assertEquals("G", list.get(6));
+		assertEquals("H", list.get(7));
 	}
 
 	/**
@@ -172,15 +196,57 @@ class MyArrayListTest {
 	 */
 	@Test
 	void testGet() {
-		fail("Not yet implemented");
+		list.add("A");
+		list.add("B");
+		list.add("C");
+		list.add("D");
+		assertEquals(4, list.size());
+		assertEquals("A", list.get(0));
+		assertEquals("B", list.get(1));
+		assertEquals("C", list.get(2));
+		assertEquals("D", list.get(3));
+		
 	}
 
 	/**
 	 * Test method for {@link utilities.MyArrayList#remove(int)}.
 	 */
 	@Test
-	void testRemoveInt() {
-		fail("Not yet implemented");
+	void testRemoveIntInHead() {
+		list.add("A");
+		list.add("C");
+		list.add("R");
+		list.add("G");
+		list.remove(0);
+		assertEquals(3, list.size());
+		assertEquals("C", list.get(0));
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#remove(int)}.
+	 */
+	@Test
+	void testRemoveIntInTail() {
+		list.add("A");
+		list.add("C");
+		list.add("R");
+		list.add("G");
+		list.remove(3);
+		assertEquals(3, list.size());
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#remove(int)}.
+	 */
+	@Test
+	void testRemoveIntInMiddle() {
+		list.add("A");
+		list.add("C");
+		list.add("R");
+		list.add("G");
+		list.remove(2);
+		assertEquals(3, list.size());
+		assertEquals("G", list.get(2));
 	}
 
 	/**
@@ -188,15 +254,56 @@ class MyArrayListTest {
 	 */
 	@Test
 	void testRemoveE() {
-		fail("Not yet implemented");
+		list.add("A");
+		list.add("B");
+		list.add("C");
+		list.add("D");
+		assertEquals(4, list.size());
+		list.remove("B");
+		assertEquals(3, list.size());
+		assertEquals("C", list.get(1));
 	}
 
 	/**
 	 * Test method for {@link utilities.MyArrayList#set(int, java.lang.Object)}.
 	 */
 	@Test
-	void testSet() {
-		fail("Not yet implemented");
+	void testSetInHead() {
+		list.add("A");
+		list.add("B");
+		list.add("C");
+		list.add("D");
+		list.set(0, "k");
+		assertEquals(4, list.size());
+		assertEquals("k", list.get(0));
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#set(int, java.lang.Object)}.
+	 */
+	@Test
+	void testSetInTail() {
+		list.add("A");
+		list.add("B");
+		list.add("C");
+		list.add("D");
+		list.set(2, "r");
+		assertEquals(4, list.size());
+		assertEquals("r", list.get(2));
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyArrayList#set(int, java.lang.Object)}.
+	 */
+	@Test
+	void testSetInMiddle() {
+		list.add("A");
+		list.add("B");
+		list.add("C");
+		list.add("D");
+		list.set(3, "v");
+		assertEquals(4, list.size());
+		assertEquals("v", list.get(3));
 	}
 
 	/**
@@ -204,7 +311,12 @@ class MyArrayListTest {
 	 */
 	@Test
 	void testIsEmpty() {
-		fail("Not yet implemented");
+		list.add("A");
+		list.add("B");
+		list.add("C");
+		assertFalse(list.isEmpty());
+		list.clear();
+		assertTrue(list.isEmpty());
 	}
 
 	/**
@@ -212,7 +324,13 @@ class MyArrayListTest {
 	 */
 	@Test
 	void testContains() {
-		fail("Not yet implemented");
+		list.add("A");
+		list.add("C");
+		list.add("D");
+		list.add("B");
+		assertTrue(list.contains("A"));
+		assertFalse(list.contains("v"));
+		
 	}
 
 	/**

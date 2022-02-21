@@ -9,17 +9,24 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import exception.EmptyQueueException;
+
 /**
  * @author water
  *
  */
+
 class MyQueueTests {
 
 	/**
 	 * @throws java.lang.Exception
 	 */
+	// attributes
+	QueueADT<String> list;
+	
 	@BeforeEach
 	void setUp() throws Exception {
+		list= new MyQueue<>(); 
 	}
 
 	/**
@@ -27,22 +34,26 @@ class MyQueueTests {
 	 */
 	@AfterEach
 	void tearDown() throws Exception {
+		list=null;
 	}
 
-	/**
-	 * Test method for {@link utilities.MyQueue#MyQueue()}.
-	 */
-	@Test
-	void testMyQueue() {
-		fail("Not yet implemented");
-	}
+	
 
 	/**
 	 * Test method for {@link utilities.MyQueue#enqueue(java.lang.Object)}.
+	 * @throws EmptyQueueException 
 	 */
 	@Test
 	void testEnqueue() {
-		fail("Not yet implemented");
+		list.enqueue("A");
+		list.enqueue("B");
+		list.enqueue("C");
+		assertEquals(3, list.size());
+		try {
+			assertEquals("A", list.peek());
+		} catch (EmptyQueueException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -50,7 +61,22 @@ class MyQueueTests {
 	 */
 	@Test
 	void testDequeue() {
-		fail("Not yet implemented");
+		list.enqueue("A");
+		list.enqueue("B");
+		list.enqueue("C");
+		
+		try {
+			list.dequeue();
+		} catch (EmptyQueueException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			assertEquals("B", list.peek());
+		} catch (EmptyQueueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -58,7 +84,16 @@ class MyQueueTests {
 	 */
 	@Test
 	void testPeek() {
-		fail("Not yet implemented");
+		list.enqueue("A");
+		list.enqueue("B");
+		list.enqueue("C");
+		
+		try {
+			assertEquals("A", list.peek());
+		} catch (EmptyQueueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -66,7 +101,24 @@ class MyQueueTests {
 	 */
 	@Test
 	void testEqualsQueueADTOfE() {
-		fail("Not yet implemented");
+		MyQueue<String> additionalMyQueue=new MyQueue<>();
+		MyQueue<String> additionalMyQueueNot=new MyQueue<>();
+		list.enqueue("A");
+		list.enqueue("B");
+		list.enqueue("C");
+		list.enqueue("C");
+		
+		additionalMyQueue.enqueue("A");
+		additionalMyQueue.enqueue("B");
+		additionalMyQueue.enqueue("C");
+		additionalMyQueue.enqueue("C");
+		
+		additionalMyQueueNot.enqueue("A");
+		additionalMyQueueNot.enqueue("B");
+		additionalMyQueueNot.enqueue("V");
+		
+		assertTrue(list.equals(additionalMyQueue));
+		assertFalse(list.equals(additionalMyQueueNot));
 	}
 
 	/**
@@ -98,7 +150,11 @@ class MyQueueTests {
 	 */
 	@Test
 	void testIsFull() {
-		fail("Not yet implemented");
+		list.enqueue("A");
+		list.enqueue("B");
+		list.enqueue("C");
+		
+		assertFalse(list.isFull());
 	}
 
 	/**
@@ -106,7 +162,20 @@ class MyQueueTests {
 	 */
 	@Test
 	void testDequeueAll() {
-		fail("Not yet implemented");
+		list.enqueue("A");
+		list.enqueue("B");
+		list.enqueue("C");
+		
+		assertEquals(3, list.size());
+		
+		try {
+			list.dequeueAll();
+		} catch (EmptyQueueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		assertEquals(0, list.size());
 	}
 
 	/**
@@ -114,7 +183,19 @@ class MyQueueTests {
 	 */
 	@Test
 	void testIsEmpty() {
-		fail("Not yet implemented");
+		list.enqueue("A");
+		list.enqueue("B");
+		list.enqueue("C");
+		
+		assertFalse(list.isEmpty());
+		
+		try {
+			list.dequeueAll();
+		} catch (EmptyQueueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertTrue(list.isEmpty());
 	}
 
 	/**
@@ -122,7 +203,11 @@ class MyQueueTests {
 	 */
 	@Test
 	void testSize() {
-		fail("Not yet implemented");
+		list.enqueue("A");
+		list.enqueue("B");
+		list.enqueue("C");
+		
+		assertEquals(3, list.size());
 	}
 
 }

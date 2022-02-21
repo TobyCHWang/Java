@@ -12,13 +12,13 @@ public class MyQueue<E> implements QueueADT<E> {
 	
 	
 	@Override
-	public boolean enqueue(E toPush) {
+	public boolean enqueue(E toPush) throws NullPointerException {
 		return list.add(toPush);
 		
 	}
 
 	@Override
-	public E dequeue() throws EmptyQueueException {
+	public E dequeue() throws EmptyQueueException{
 		return list.remove(0);
 	}
 
@@ -31,7 +31,7 @@ public class MyQueue<E> implements QueueADT<E> {
 	public boolean equals(QueueADT<E> that) throws NullPointerException {
 		boolean condition=false;
 		
-		for(int i=list.size()-1;i>=0;i--) {
+		for(int i=0;i<list.size();i++) {
 			try {
 				if(list.get(i).equals(that.peek())) {
 					condition=true;
@@ -63,7 +63,7 @@ public class MyQueue<E> implements QueueADT<E> {
 	}
 
 	@Override
-	public E[] toArray(E[] copy) {
+	public E[] toArray(E[] copy) throws NullPointerException {
 		return list.toArray(copy);
 	}
 
@@ -73,7 +73,7 @@ public class MyQueue<E> implements QueueADT<E> {
 	}
 
 	@Override
-	public void dequeueAll() {
+	public void dequeueAll() throws EmptyQueueException {
 		list.clear();
 		
 	}

@@ -1,5 +1,7 @@
 package utilities;
 
+import java.util.EmptyStackException;
+
 public class MyStack<E> implements StackADT<E> {
 	private MyArrayList<E> list;
 	
@@ -8,23 +10,23 @@ public class MyStack<E> implements StackADT<E> {
 	}
 	
 	@Override
-	public boolean push(E toPush) {
+	public boolean push(E toPush) throws NullPointerException {
 		return list.add(toPush);
 	}
 	
 
 	@Override
-	public E pop() {
+	public E pop() throws EmptyStackException {
 		return list.remove(list.size()-1);
 	}
 
 	@Override
-	public E peek() {
+	public E peek() throws EmptyStackException {
 		return list.get(list.size()-1);
 	}
 
 	@Override
-	public boolean equals(StackADT<E> that) {
+	public boolean equals(StackADT<E> that) throws NullPointerException {
 		boolean condition=false;
 		
 		for(int i=list.size()-1;i>=0;i--) {
@@ -46,7 +48,7 @@ public class MyStack<E> implements StackADT<E> {
 	}
 
 	@Override
-	public E[] toArray(E[] copy) {
+	public E[] toArray(E[] copy) throws NullPointerException {
 		for(int i=0;i<list.size()/2;i++) {
 			E temp=list.get(i);
 			list.set(i, list.get(list.size()-i-1));
@@ -69,7 +71,7 @@ public class MyStack<E> implements StackADT<E> {
 	}
 
 	@Override
-	public int search(E obj) {
+	public int search(E obj) throws NullPointerException {
 		for(int i=0;i<list.size();i++) {
 			if(list.get(i)==obj) {
 				return i;
@@ -79,7 +81,7 @@ public class MyStack<E> implements StackADT<E> {
 	}
 
 	@Override
-	public boolean contains(E obj) {
+	public boolean contains(E obj) throws NullPointerException {
 		return list.contains(obj);
 	}
 

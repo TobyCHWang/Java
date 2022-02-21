@@ -1,7 +1,13 @@
 package utilities;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class tobyTest {
 public static void main(String[] args) {
@@ -10,13 +16,15 @@ public static void main(String[] args) {
 //	arrayList2.add("fff");
 //	arrayList2.add("sdfsdf");
 //
-	arrayList.add("a");
-	arrayList.add("b");
-	arrayList.add("a");
-	
-	System.out.println(arrayList.contains("a"));
-	
-	arrayList.remove("a");
+//	arrayList.add("a");
+//	arrayList.add("b");
+//	arrayList.add("a");
+//	
+//	System.out.println(arrayList.iterator());
+//	
+//	System.out.println(arrayList.contains("a"));
+//	
+//	arrayList.remove("a");
 //	
 //	arrayList.addAll(arrayList2);
 //	for(int i=0;i<arrayList.size();i++) {
@@ -26,16 +34,35 @@ public static void main(String[] args) {
 //	
 //	System.out.println(arrayList.contains("k"));
 	
-//	MyDLL<String> aDll=new MyDLL<>();
-////	MyDLL<String> bDll=new MyDLL<>();
-//	aDll.add("a");
-//	aDll.add("b");
+//	MyDLL<String> list=new MyDLL<>();
+//	list.add("A");
+//	list.add("B");
+//	list.add("C");
+//	utilities.Iterator<String> it = list.iterator();
 //	
-//	for(int i=aDll.size()-1;i>=0;i--) {
-//		System.out.println(aDll.get(i));
+//	int i = 0;
+//	while (it.hasNext()) {
+//		assertEquals(list.get(i++), it.next());
 //	}
+//	assertFalse(it.hasNext());
+//	assertThrows(NoSuchElementException.class, () -> {
+//		it.next();
+//	});
+////	MyDLL<String> bDll=new MyDLL<>();
+//	aDll.add(0,"a");
+//	aDll.add("b");
+//	aDll.add("k");
+//	
+//	System.out.println(aDll.iterator());
+//	aDll.iterator();
+////	
+////	for(int i=aDll.size()-1;i>=0;i--) {
+////		System.out.println(aDll.get(i));
+////	}
 //	aDll.add("v");
-//	System.out.println(aDll.size());
+//	String[] teStrings=new String[10];
+//	aDll.toArray(teStrings);
+////	System.out.println(aDll.size());
 //	aDll.clear();
 //	System.out.println(aDll.size());
 //	bDll.add("k");
@@ -88,7 +115,7 @@ public static void main(String[] args) {
 	aMyQueue.enqueue("bb");
 	
 	aMyQueue2.enqueue("aa");
-	aMyQueue2.enqueue("bb");
+	aMyQueue2.enqueue("vv");
 	System.out.println(aMyQueue.equals(aMyQueue2));
 	
 	

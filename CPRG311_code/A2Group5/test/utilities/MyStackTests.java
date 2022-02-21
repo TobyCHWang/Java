@@ -14,12 +14,16 @@ import org.junit.jupiter.api.Test;
  *
  */
 class MyStackTests {
+	
+	// attributes
+		StackADT<String> list;
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
+		list=new MyStack<>();
 	}
 
 	/**
@@ -27,22 +31,20 @@ class MyStackTests {
 	 */
 	@AfterEach
 	void tearDown() throws Exception {
+		list=null;
 	}
 
-	/**
-	 * Test method for {@link utilities.MyStack#MyStack()}.
-	 */
-	@Test
-	void testMyStack() {
-		fail("Not yet implemented");
-	}
 
 	/**
 	 * Test method for {@link utilities.MyStack#push(java.lang.Object)}.
 	 */
 	@Test
 	void testPush() {
-		fail("Not yet implemented");
+		list.push("A");
+		list.push("B");
+		list.push("C");
+		assertEquals(3, list.size());
+		assertEquals("C", list.peek());
 	}
 
 	/**
@@ -50,7 +52,13 @@ class MyStackTests {
 	 */
 	@Test
 	void testPop() {
-		fail("Not yet implemented");
+		list.push("A");
+		list.push("B");
+		list.push("C");
+		
+		list.pop();
+		assertEquals(2, list.size());
+		assertEquals("B", list.peek());
 	}
 
 	/**
@@ -58,7 +66,10 @@ class MyStackTests {
 	 */
 	@Test
 	void testPeek() {
-		fail("Not yet implemented");
+		list.push("A");
+		list.push("B");
+		list.push("C");
+		assertEquals("C", list.peek());
 	}
 
 	/**
@@ -66,7 +77,28 @@ class MyStackTests {
 	 */
 	@Test
 	void testEqualsStackADTOfE() {
-		fail("Not yet implemented");
+		MyStack<String> additonMyStack=new MyStack<>();
+		MyStack<String> additonMyStackNot=new MyStack<>();
+		list.push("A");
+		list.push("B");
+		list.push("C");
+		list.push("C");
+		
+		additonMyStack.push("A");
+		additonMyStack.push("B");
+		additonMyStack.push("C");
+		additonMyStack.push("C");
+		
+		
+		additonMyStackNot.push("A");
+		additonMyStackNot.push("B");
+		additonMyStackNot.push("V");
+		
+		
+		assertTrue(list.equals(additonMyStack));
+		assertFalse(list.equals(additonMyStackNot));
+		
+		
 	}
 
 	/**
@@ -98,7 +130,12 @@ class MyStackTests {
 	 */
 	@Test
 	void testSearch() {
-		fail("Not yet implemented");
+		list.push("A");
+		list.push("B");
+		list.push("C");
+		assertEquals(0, list.search("A"));
+		assertEquals(1, list.search("B"));
+		assertEquals(2, list.search("C"));
 	}
 
 	/**
@@ -106,7 +143,12 @@ class MyStackTests {
 	 */
 	@Test
 	void testContains() {
-		fail("Not yet implemented");
+		list.push("A");
+		list.push("B");
+		list.push("C");
+		assertTrue(list.contains("A"));
+		assertFalse(list.contains("v"));
+		
 	}
 
 	/**
@@ -114,7 +156,12 @@ class MyStackTests {
 	 */
 	@Test
 	void testIsEmpty() {
-		fail("Not yet implemented");
+		list.push("A");
+		list.push("B");
+		list.push("C");
+		assertFalse(list.isEmpty());
+		list.clear();
+		assertTrue(list.isEmpty());
 	}
 
 	/**
@@ -122,7 +169,11 @@ class MyStackTests {
 	 */
 	@Test
 	void testSize() {
-		fail("Not yet implemented");
+		list.push("A");
+		list.push("B");
+		list.push("C");
+		
+		assertEquals(3, list.size());
 	}
 
 	/**
@@ -130,7 +181,12 @@ class MyStackTests {
 	 */
 	@Test
 	void testClear() {
-		fail("Not yet implemented");
+		list.push("A");
+		list.push("B");
+		list.push("C");
+		
+		list.clear();
+		assertEquals(0, list.size());
 	}
 
 }

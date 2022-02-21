@@ -52,6 +52,7 @@ public class MyArrayList<E> implements ListADT<E> {
 			preValue=array[i];
 			array[i]=temp;
 		}
+		size++;
 		return true;
 	}
 

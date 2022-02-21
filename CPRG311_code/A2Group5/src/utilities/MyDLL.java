@@ -28,7 +28,7 @@ public class MyDLL<E> implements ListADT<E> {
 
 	@Override
 	public boolean add(int index, E toAdd) throws NullPointerException, IndexOutOfBoundsException {
-		if(index < 0 || index >= size) {
+		if(index < 0 || index > size) {
 			throw new IndexOutOfBoundsException();
 		}
 		
@@ -140,7 +140,7 @@ public class MyDLL<E> implements ListADT<E> {
 	        if (index == 0) {
 	            head = head.getNext();
 	            currentNode.setNext(null); 
-	            head.setPrev(null); 
+	            
 	        } else {
 	        	MyDLLNode currentNodeBefore = null;
 	            for (int i = 0; i < index; i++) {
@@ -287,6 +287,7 @@ public class MyDLL<E> implements ListADT<E> {
 //attributes		
 		private MyDLL<E> dll;
 		private MyDLLNode<E> node;
+		private int pos;
 		private boolean begin;
 		
 		//constructor
@@ -317,6 +318,10 @@ public class MyDLL<E> implements ListADT<E> {
 
 		@Override
 		public E next() throws NoSuchElementException {
+			if (pos >= size || this.node==null) {
+				throw new NoSuchElementException();
+			}
+			
 			if(this.begin==false) {
 				this.begin=true;
 				if(node!=null) {
@@ -326,6 +331,9 @@ public class MyDLL<E> implements ListADT<E> {
 				}
 			}else {
 				node=node.getNext();
+				if(node==null){
+					throw new NoSuchElementException();	
+				}
 				return node.getInformation();
 			}
 			
