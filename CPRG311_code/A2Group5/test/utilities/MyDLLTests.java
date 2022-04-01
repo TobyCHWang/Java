@@ -12,19 +12,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * @author water
+ * @author krist
  *
  */
 class MyDLLTests {
+	
 	// attributes
-		ListADT<String> list;
-
+	ListADT<String> dll;
+		
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
-		list = new MyDLL<>();
+		dll = new MyDLL<>();
 	}
 
 	/**
@@ -32,7 +33,7 @@ class MyDLLTests {
 	 */
 	@AfterEach
 	void tearDown() throws Exception {
-		list=null;
+		dll = null;
 	}
 
 	/**
@@ -40,7 +41,7 @@ class MyDLLTests {
 	 */
 	@Test
 	void testSizeEmpty() {
-		assertEquals(0, list.size());;
+		assertEquals(0, dll.size());
 	}
 	
 	/**
@@ -48,72 +49,89 @@ class MyDLLTests {
 	 */
 	@Test
 	void testSizeNotEmpty() {
-		list.add("A");
-		list.add("B");
-		list.add("C");
-		assertEquals(3, list.size());
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		assertEquals(3, dll.size());
 	}
 
 	/**
 	 * Test method for {@link utilities.MyDLL#clear()}.
 	 */
 	@Test
-	void testClear() {
-		list.add("A");
-		list.add("B");
-		list.add("C");
-		list.clear();
-		assertEquals(0, list.size());
+	void testClearEmpty() {
+		dll.clear();
+		assertEquals(0, dll.size());
 	}
-
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#clear()}.
+	 */
+	@Test
+	void testClearNotEmpty() {
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		dll.clear();
+		assertEquals(0, dll.size());
+	}
+	
 	/**
 	 * Test method for {@link utilities.MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
 	void testAddIntEEmpty() {
-		boolean added = list.add(0, "A");
-		assertEquals(1, list.size());
-		assertEquals("A", list.get(0));
+		boolean added = dll.add(0, "A");
 		assertTrue(added);
+		assertEquals(1, dll.size());
+		assertEquals("A", dll.get(0));
+		assertEquals("A", dll.get(dll.size() - 1));
 	}
 	
 	/**
 	 * Test method for {@link utilities.MyDLL#add(int, java.lang.Object)}.
 	 */
 	@Test
-	void testAddIntENotEmptyAppend() {
-		list.add("A");
-		boolean added = list.add(1, "B");
+	void testAddIntEAppend() {
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		boolean added = dll.add(0, "D");
 		assertTrue(added);
-		assertEquals(2, list.size());
-		assertEquals("B", list.get(1));
+		assertEquals(4, dll.size());
+		assertEquals("D", dll.get(0));
+		assertEquals("C", dll.get(dll.size() - 1));
 	}
 	
 	/**
 	 * Test method for {@link utilities.MyDLL#add(int, java.lang.Object)}.
 	 */
-	
 	@Test
-	void testAddIntENotEmptyPrepend() {
-		list.add("B");
-		boolean added = list.add(0, "A");
+	void testAddIntEPrepend() {
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		boolean added = dll.add(3, "D");
 		assertTrue(added);
-		assertEquals(2, list.size());
-		assertEquals("A", list.get(0));
+		assertEquals(4, dll.size());
+		assertEquals("A", dll.get(0));
+		assertEquals("D", dll.get(dll.size() - 1));
 	}
 	
 	/**
 	 * Test method for {@link utilities.MyDLL#add(int, java.lang.Object)}.
 	 */
-	
 	@Test
-	void testAddIntENotEmptyInsert() {
-		list.add("A");
-		list.add("C");
-		boolean added = list.add(1, "B");
+	void testAddIntEOtherPos() {
+		dll.add("A");
+		dll.add("C");
+		dll.add("D");
+		boolean added = dll.add(1, "B");
 		assertTrue(added);
-		assertEquals(3, list.size());
-		assertEquals("B", list.get(1));
+		assertEquals(4, dll.size());
+		assertEquals("A", dll.get(0));
+		assertEquals("B", dll.get(1));
+		assertEquals("D", dll.get(dll.size() - 1));
 	}
 	
 	/**
@@ -122,7 +140,7 @@ class MyDLLTests {
 	@Test
 	void testAddIntENullPointerException() {
 		try {
-			list.add(0, null);
+			dll.add(0, null);
 			fail("NullPointerException wasn't thrown!");
 		} catch (NullPointerException e) {
 			assertTrue(true);
@@ -132,11 +150,10 @@ class MyDLLTests {
 	/**
 	 * Test method for {@link utilities.MyDLL#add(int, java.lang.Object)}.
 	 */
-	
 	@Test
-	void testAddIntELowestIndexOutOfBoundsException() {
+	void testAddIntELowerIndexOutOfBounds() {
 		try {
-			list.add(-1, "A");
+			dll.add(-1, "A");
 			fail("IndexOutOfBoundsException wasn't thrown!");
 		} catch (IndexOutOfBoundsException e) {
 			assertTrue(true);
@@ -146,57 +163,105 @@ class MyDLLTests {
 	/**
 	 * Test method for {@link utilities.MyDLL#add(int, java.lang.Object)}.
 	 */
-	
 	@Test
-	void testAddIntEHighestIndexOutOfBoundsException() {
+	void testAddIntEHigherIndexOutOfBounds() {
 		try {
-			list.add(1, "A");
+			dll.add(1, "A");
 			fail("IndexOutOfBoundsException wasn't thrown!");
 		} catch (IndexOutOfBoundsException e) {
 			assertTrue(true);
 		}
 	}
-	
 
 	/**
 	 * Test method for {@link utilities.MyDLL#add(java.lang.Object)}.
 	 */
 	@Test
-	void testAddE() {
-		// TODO 3 methods
-				list.add("A");
-				list.add("B");
-				list.add("C");
-				assertEquals(3, list.size());
-				assertEquals("A", list.get(0));
-				assertEquals("B", list.get(1));
-				assertEquals("C", list.get(2));
+	void testAddEEmpty() {
+		boolean added = dll.add("A");
+		assertTrue(added);
+		assertEquals(1, dll.size());
+		assertEquals("A", dll.get(0));
+		assertEquals("A", dll.get(dll.size() - 1));
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#add(java.lang.Object)}.
+	 */
+	@Test
+	void testAddENotEmpty() {
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		boolean added = dll.add("D");
+		assertTrue(added);
+		assertEquals(4, dll.size());
+		assertEquals("A", dll.get(0));
+		assertEquals("D", dll.get(dll.size() - 1));
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#add(java.lang.Object)}.
+	 */
+	@Test
+	void testAddENullPointerException() {
+		try {
+			dll.add(null);
+			fail("NullPointerException wasn't thrown!");
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
 	}
 
 	/**
 	 * Test method for {@link utilities.MyDLL#addAll(utilities.ListADT)}.
 	 */
 	@Test
-	void testAddAll() {
-		MyDLL<String> additonalDllList=new MyDLL<>();
-		list.add("A");
-		list.add("B");
-		list.add("C");
-		list.add("D");
-		additonalDllList.add("E");
-		additonalDllList.add("F");
-		additonalDllList.add("G");
-		additonalDllList.add("H");
-		list.addAll(additonalDllList);
-		assertEquals(8, list.size());
-		assertEquals("A", list.get(0));
-		assertEquals("B", list.get(1));
-		assertEquals("C", list.get(2));
-		assertEquals("D", list.get(3));
-		assertEquals("E", list.get(4));
-		assertEquals("F", list.get(5));
-		assertEquals("G", list.get(6));
-		assertEquals("H", list.get(7));
+	void testAddAllEmpty() {
+		ListADT<String> newDll = new MyDLL<>();
+		newDll.add("A");
+		newDll.add("B");
+		newDll.add("C");
+		boolean added = dll.addAll(newDll);
+		assertTrue(added);
+		assertEquals(3, dll.size());
+		Iterator<String> it = dll.iterator();
+		int i = 0;
+		while (it.hasNext()) {
+			assertEquals(newDll.get(i++), it.next());
+		}
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#addAll(utilities.ListADT)}.
+	 */
+	@Test
+	void testAddAllNotEmpty() {
+		dll.add("A");
+		dll.add("B");
+		ListADT<String> newDll = new MyArrayList<>();
+		newDll.add("C");
+		newDll.add("D");
+		boolean added = dll.addAll(newDll);
+		assertTrue(added);
+		assertEquals(4, dll.size());
+		assertEquals("A", dll.get(0));
+		assertEquals("B", dll.get(1));
+		assertEquals("C", dll.get(2));
+		assertEquals("D", dll.get(3));
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#addAll(utilities.ListADT)}.
+	 */
+	@Test
+	void testAddAllNullPointerException() {
+		try {
+			dll.addAll(null);
+			fail("NullPointerException wasn't thrown!");
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
 	}
 
 	/**
@@ -204,155 +269,308 @@ class MyDLLTests {
 	 */
 	@Test
 	void testGet() {
-		list.add("A");
-		list.add("B");
-		list.add("C");
-		list.add("D");
-		assertEquals(4, list.size());
-		assertEquals("A", list.get(0));
-		assertEquals("B", list.get(1));
-		assertEquals("C", list.get(2));
-		assertEquals("D", list.get(3));
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		assertEquals(3, dll.size());
+		assertEquals("A", dll.get(0));
+		assertEquals("B", dll.get(1));
+		assertEquals("C", dll.get(dll.size() - 1));
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#get(int)}.
+	 */
+	@Test
+	void testGetIndexOutOfBounds() {
+		try {
+			dll.get(0);
+			fail("IndexOutOfBoundsException wasn't thrown!");
+		} catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
 	}
 
 	/**
 	 * Test method for {@link utilities.MyDLL#remove(int)}.
 	 */
 	@Test
-	void testRemoveIntInHead() {
-		list.add("A");
-		list.add("C");
-		list.add("R");
-		list.add("G");
-		list.remove(0);
-		assertEquals(3, list.size());
-		assertEquals("C", list.get(0));
+	void testRemoveIntBeg() {
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		assertEquals("A", dll.remove(0));
+		assertEquals(2, dll.size());
+		assertEquals("B", dll.get(0));
 	}
 	
 	/**
 	 * Test method for {@link utilities.MyDLL#remove(int)}.
 	 */
 	@Test
-	void testRemoveIntInTail() {
-		list.add("A");
-		list.add("C");
-		list.add("R");
-		list.add("G");
-		list.remove(3);
-		assertEquals(3, list.size());
+	void testRemoveIntMid() {
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		assertEquals("B", dll.remove(1));
+		assertEquals(2, dll.size());
+		assertEquals("C", dll.get(1));
 	}
 	
 	/**
 	 * Test method for {@link utilities.MyDLL#remove(int)}.
 	 */
 	@Test
-	void testRemoveIntInMiddle() {
-		list.add("A");
-		list.add("C");
-		list.add("R");
-		list.add("G");
-		list.remove(2);
-		assertEquals(3, list.size());
-		assertEquals("G", list.get(2));
+	void testRemoveIntEnd() {
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		assertEquals("C", dll.remove(2));
+		assertEquals(2, dll.size());
+		assertEquals("B", dll.get(dll.size() - 1));
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#remove(int)}.
+	 */
+	@Test
+	void testRemoveIntIndexOutOfBounds() {
+		try {
+			dll.remove(0);
+			fail("IndexOutOfBoundsException wasn't thrown!");
+		} catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
 	}
 
 	/**
 	 * Test method for {@link utilities.MyDLL#remove(java.lang.Object)}.
 	 */
 	@Test
-	void testRemoveE() {
-		list.add("A");
-		list.add("B");
-		list.add("C");
-		list.add("D");
-		assertEquals(4, list.size());
-		list.remove("B");
-		assertEquals(3, list.size());
-		assertEquals("C", list.get(1));
+	void testRemoveEBeg() {
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		assertEquals("A", dll.remove("A"));
+		assertEquals(2, dll.size());
+		assertEquals("B", dll.get(0));
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#remove(java.lang.Object)}.
+	 */
+	@Test
+	void testRemoveEMid() {
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		assertEquals("B", dll.remove("B"));
+		assertEquals(2, dll.size());
+		assertEquals("C", dll.get(1));
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#remove(java.lang.Object)}.
+	 */
+	@Test
+	void testRemoveEEnd() {
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		assertEquals("C", dll.remove("C"));
+		assertEquals(2, dll.size());
+		assertEquals("B", dll.get(dll.size() - 1));
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#remove(java.lang.Object)}.
+	 */
+	@Test
+	void testRemoveENullPointerException() {
+		try {
+			dll.remove(null);
+			fail("NullPointerException wasn't thrown!");
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
 	}
 
 	/**
 	 * Test method for {@link utilities.MyDLL#set(int, java.lang.Object)}.
 	 */
 	@Test
-	void testSetInHead() {
-		list.add("A");
-		list.add("B");
-		list.add("C");
-		list.add("D");
-		list.set(0, "k");
-		assertEquals(4, list.size());
-		assertEquals("k", list.get(0));
+	void testSetNotEmpty() {
+		dll.add("A");
+		dll.add("D");
+		dll.add("C");
+		assertEquals("D", dll.set(1, "B"));
+		assertEquals(3, dll.size());
+		assertEquals("B", dll.get(1));
 	}
 	
 	/**
 	 * Test method for {@link utilities.MyDLL#set(int, java.lang.Object)}.
 	 */
 	@Test
-	void testSetInTail() {
-		list.add("A");
-		list.add("B");
-		list.add("C");
-		list.add("D");
-		list.set(2, "r");
-		assertEquals(4, list.size());
-		assertEquals("r", list.get(2));
+	void testSetNullPointerException() {
+		try {
+			dll.add("A");
+			dll.set(0, null);
+			fail("NullPointerException wasn't thrown!");
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
 	}
 	
 	/**
 	 * Test method for {@link utilities.MyDLL#set(int, java.lang.Object)}.
 	 */
 	@Test
-	void testSetInMiddle() {
-		list.add("A");
-		list.add("B");
-		list.add("C");
-		list.add("D");
-		list.set(3, "v");
-		assertEquals(4, list.size());
-		assertEquals("v", list.get(3));
+	void testSetIndexOutOfBoundsException() {
+		try {
+			dll.set(0, "A");
+			fail("IndexOutOfBoundsException wasn't thrown!");
+		} catch (IndexOutOfBoundsException e) {
+			assertTrue(true);
+		}
 	}
 
 	/**
 	 * Test method for {@link utilities.MyDLL#isEmpty()}.
 	 */
 	@Test
-	void testIsEmpty() {
-		list.add("A");
-		list.add("B");
-		list.add("C");
-		assertFalse(list.isEmpty());
-		list.clear();
-		assertTrue(list.isEmpty());
+	void testIsEmptyEmpty() {
+		boolean empty = dll.isEmpty();
+		assertTrue(empty);
+		assertEquals(0, dll.size());
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#isEmpty()}.
+	 */
+	@Test
+	void testIsEmptyNotEmpty() {
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		boolean empty = dll.isEmpty();
+		assertFalse(empty);
+		assertEquals(3, dll.size());
 	}
 
 	/**
 	 * Test method for {@link utilities.MyDLL#contains(java.lang.Object)}.
 	 */
 	@Test
-	void testContains() {
-		list.add("A");
-		list.add("C");
-		list.add("D");
-		list.add("B");
-		assertTrue(list.contains("A"));
-		assertFalse(list.contains("v"));
+	void testContainsEmpty() {
+		boolean contains = dll.contains("A");
+		assertFalse(contains);
+		assertEquals(0, dll.size());
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#contains(java.lang.Object)}.
+	 */
+	@Test
+	void testContainsNotEmpty() {
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		boolean contains = dll.contains("B");
+		assertTrue(contains);
+		assertEquals(3, dll.size());
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#contains(java.lang.Object)}.
+	 */
+	@Test
+	void testContainsNullPointerException() {
+		try {
+			dll.contains(null);
+			fail("NullPointerException wasn't thrown!");
+		} catch (NullPointerException e) {
+			assertTrue(true);
+		}
 	}
 
 	/**
 	 * Test method for {@link utilities.MyDLL#toArray(E[])}.
 	 */
 	@Test
-	void testToArrayEArray() {
-		fail("Not yet implemented");
+	void testToArrayEArrayEmpty() {
+		String[] arr = new String[3];
+		arr = dll.toArray(arr);
+		assertEquals(3, arr.length);
+		for(int i = 0; i < arr.length; i++) {
+			assertNull(arr[i]);
+		}
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#toArray(E[])}.
+	 */
+	@Test
+	void testToArrayEArrayNotEmptySufficient() {
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		String[] arr = new String[3];
+		arr = dll.toArray(arr);
+		assertEquals(3, arr.length);
+		for(int i = 0; i < arr.length; i++) {
+			assertEquals(dll.get(i), arr[i]);
+		}
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#toArray(E[])}.
+	 */
+	@Test
+	void testToArrayEArrayNotEmptyInsufficient() {
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		String[] arr = new String[1];
+		arr = dll.toArray(arr);
+		assertEquals(3, arr.length);
+		for(int i = 0; i < arr.length; i++) {
+			assertEquals(dll.get(i), arr[i]);
+		}
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#toArray(E[])}.
+	 */
+	@Test
+	void testToArrayEArrayNullPointerException() {
+		assertThrows(NullPointerException.class, () -> {
+			dll.toArray(null);
+		});
 	}
 
 	/**
 	 * Test method for {@link utilities.MyDLL#toArray()}.
 	 */
 	@Test
-	void testToArray() {
-		fail("Not yet implemented");
+	void testToArrayEmpty() {
+		Object[] arr = dll.toArray();
+		assertEquals(0, arr.length);
+	}
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#toArray()}.
+	 */
+	@Test
+	void testToArrayNotEmpty() {
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		Object[] arr = dll.toArray();
+		assertEquals(3, arr.length);
+		for(int i = 0; i < arr.length; i++) {
+			assertEquals(dll.get(i), arr[i]);
+		}	
 	}
 
 	/**
@@ -360,7 +578,7 @@ class MyDLLTests {
 	 */
 	@Test
 	void testIteratorEmpty() {
-		Iterator<String> it = list.iterator();
+		Iterator<String> it = dll.iterator();
 		assertFalse(it.hasNext());
 		assertThrows(NoSuchElementException.class, () -> {
 			it.next();
@@ -371,15 +589,15 @@ class MyDLLTests {
 	 * Test method for {@link utilities.MyDLL#iterator()}.
 	 */
 	@Test
-	void testIteratorNonEmpty() {
-		list.add("A");
-		list.add("B");
-		list.add("C");
-		Iterator<String> it = list.iterator();
+	void testIteratorNotEmpty() {
+		dll.add("A");
+		dll.add("B");
+		dll.add("C");
+		Iterator<String> it = dll.iterator();
 		assertTrue(it.hasNext());
 		int i = 0;
 		while (it.hasNext()) {
-			assertEquals(list.get(i++), it.next());
+			assertEquals(dll.get(i++), it.next());
 		}
 		assertFalse(it.hasNext());
 		assertThrows(NoSuchElementException.class, () -> {

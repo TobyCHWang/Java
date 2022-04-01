@@ -7,49 +7,49 @@ public class MyQueue<E> implements QueueADT<E> {
 	private MyDLL<E> list;
 	
 	public MyQueue() {
-		list=new MyDLL<>();
-	}
-	
-	
-	@Override
-	public boolean enqueue(E toPush) throws NullPointerException {
-		return list.add(toPush);
-		
+		list = new MyDLL();
 	}
 
 	@Override
-	public E dequeue() throws EmptyQueueException{
-		return list.remove(0);
+	public void enqueue(E toAdd) throws NullPointerException {
+		if (toAdd == null) {
+			throw new NullPointerException();
+		}
+		list.add(toAdd);
 	}
 
 	@Override
-	public E peek() throws EmptyQueueException{
-		return list.get(0);
+	public E dequeue() throws EmptyQueueException {
+		if (list.size() == 0) {
+			throw new EmptyQueueException();
+		}
+		return (E) list.remove(0);
+	}
+
+	@Override
+	public E peek() throws EmptyQueueException {
+		if (list.size() == 0) {
+			throw new EmptyQueueException();
+		}
+		return (E) list.get(0);
 	}
 
 	@Override
 	public boolean equals(QueueADT<E> that) throws NullPointerException {
-		boolean condition=false;
-		
-		for(int i=0;i<list.size();i++) {
-			try {
-				if(list.get(i).equals(that.peek())) {
-					condition=true;
-					that.dequeue();
-				}else {
-					condition=false;
-				}
-			} catch (IndexOutOfBoundsException e) {
-				
-				e.printStackTrace();
-			} catch (EmptyQueueException e) {
-				
-				e.printStackTrace();
+		if (this == that) {
+			return true;
+		}
+		if (list.size() != that.size()) {
+			return false;
+		}
+		Iterator list_it = list.iterator();
+		Iterator that_it = that.iterator();
+		while (list_it.hasNext()) {
+			if (!list_it.next().equals(that_it.next())) {
+				return false;
 			}
 		}
-		
-		
-		return condition;
+		return true;
 	}
 
 	@Override
@@ -73,19 +73,18 @@ public class MyQueue<E> implements QueueADT<E> {
 	}
 
 	@Override
-	public void dequeueAll() throws EmptyQueueException {
-		list.clear();
-		
+	public int size() {
+		return list.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return (list.size()==0);
+		return list.isEmpty();
 	}
 
 	@Override
-	public int size() {
-		return list.size();
+	public void dequeueAll(){
+		list.clear();
 	}
 
 }

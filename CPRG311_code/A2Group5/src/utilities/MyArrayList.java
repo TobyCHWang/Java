@@ -1,7 +1,6 @@
 package utilities;
 
 import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class MyArrayList<E> implements ListADT<E> {
@@ -23,14 +22,11 @@ public class MyArrayList<E> implements ListADT<E> {
 		return size;
 	}
 
-	// size is zero
 	@Override
 	public void clear() {
-		size=0;
-
+		size = 0;
 	}
 
-	// increase size
 	@Override
 	public boolean add(int index, E toAdd) throws NullPointerException, IndexOutOfBoundsException {
 		if (index < 0 || index > size) {
@@ -39,33 +35,29 @@ public class MyArrayList<E> implements ListADT<E> {
 		if (toAdd == null) {
 			throw new NullPointerException();
 		}
-		// check for capacity
 		if (size == array.length) {
-			E[] largeArray=Arrays.copyOf(array, array.length*2);
-			array=largeArray;
-				
+			Object[] temp = (E[]) new Object[(array.length * 2)];
+			for (int i = 0; i < array.length; i++) {
+				temp[i] = array[i];
+			}
+			array = (E[]) temp;
 		}
-		E preValue=toAdd;
-		// TODO insert toAdd into index position (requires a loop)
-		for(int i=index;i<array.length;i++) {
-			E temp=preValue;
-			preValue=array[i];
-			array[i]=temp;
-		}
+		array[index] = toAdd;
 		size++;
 		return true;
 	}
 
-	// increase size
 	@Override
 	public boolean add(E toAdd) throws NullPointerException {
 		if (toAdd == null) {
 			throw new NullPointerException();
 		}
-		// check for capacity
 		if (size == array.length) {
-			E[] largeArray=Arrays.copyOf(array, array.length*2);
-			array=largeArray;
+			Object[] temp = (E[]) new Object[(array.length * 2)];
+			for (int i = 0; i < array.length; i++) {
+				temp[i] = array[i];
+			}
+			array = (E[]) temp;
 		}
 		array[size] = toAdd;
 		size++;
@@ -73,84 +65,79 @@ public class MyArrayList<E> implements ListADT<E> {
 	}
 
 	@Override
-	//not sure
 	public boolean addAll(ListADT<? extends E> toAdd) throws NullPointerException {
 		if (toAdd == null) {
 			throw new NullPointerException();
 		}
-		
-		if (size == array.length) {
-			E[] largeArray=Arrays.copyOf(array, array.length*2);
-			array=largeArray;
+		for (Iterator<? extends E> iterator = toAdd.iterator(); iterator.hasNext();) {
+			E elem = iterator.next();
+			add(elem);
 		}
-		Object[] aObjects=toAdd.toArray();
-		int numNew=aObjects.length;
-		System.arraycopy(aObjects, 0, array, size, numNew);
-		size+=numNew;
 		return true;
 	}
 
 	@Override
 	public E get(int index) throws IndexOutOfBoundsException {
-		if(index < 0 || index >= size) {
+		if (index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException();
 		}
 		return array[index];
 	}
 
-	// decrement size
 	@Override
 	public E remove(int index) throws IndexOutOfBoundsException {
-		if(index < 0 || index >= size) {
+		E toReturn = null;
+		if (index < 0 || index >= size) {
 			throw new IndexOutOfBoundsException();
-		}else {
-			for(int i = index; i < size; i++){
-				array[i]=array[i+1];
-			}
 		}
+		Object[] temp = (E[]) new Object[array.length - 1];
+		for (int i = 0, k = 0; i < array.length; i++) {
+			if (i == index) {
+				toReturn = (E) array[i];
+				continue;
+			}
+			temp[k++] = array[i];
+		}
+		array = (E[]) temp;
 		size--;
-		return (E) array;
+		return toReturn;
 	}
 
-	// decrement size
 	@Override
 	public E remove(E toRemove) throws NullPointerException {
+		E toReturn = null;
 		if (toRemove == null) {
 			throw new NullPointerException();
-		}else {
-			 for(int i = 0; i < array.length; i++){
-			      if(array[i] == toRemove){
-			        // shifting elements
-			        for(int j = i; j < array.length - 1; j++){
-			        	array[j] = array[j+1];
-			        }
-			       
-			      }
-			      
-			    }
-			 
-			 
 		}
+		Object[] temp = (E[]) new Object[array.length - 1];
+		for (int i = 0, k = 0; i < array.length; i++) {
+			if (toRemove == array[i]) {
+				toReturn = (E) array[i];
+				continue;
+			}
+			temp[k++] = array[i];
+		}
+		array = (E[]) temp;
 		size--;
-		
-		return (E) array;
+		return toReturn;
 	}
 
 	@Override
 	public E set(int index, E toChange) throws NullPointerException, IndexOutOfBoundsException {
-		if (index < 0 || index > size) {
-			throw new IndexOutOfBoundsException();
-		}
 		if (toChange == null) {
 			throw new NullPointerException();
 		}
-		array[index]=toChange;
-		return (E) array;
+		if (index < 0 || index >= size) {
+			throw new IndexOutOfBoundsException();
+		}
+		E toReturn = array[index];
+		array[index] = toChange;
+		return toReturn;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		return (size==0);
+		return size == 0;
 	}
 
 	@Override
@@ -158,21 +145,21 @@ public class MyArrayList<E> implements ListADT<E> {
 		if (toFind == null) {
 			throw new NullPointerException();
 		}
-		
-		for(int i=0;i<array.length;i++) {
-			if(array[i]==(toFind)) {
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == toFind) {
 				return true;
 			}
 		}
-		
 		return false;
-		
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public E[] toArray(E[] toHold) throws NullPointerException {
-		if(toHold.length < this.size) {
+		if (toHold == null) {
+			throw new NullPointerException();
+		}
+		if (toHold.length < this.size) {
 			toHold = (E[]) Array.newInstance(array[0].getClass(), this.size);
 		}
 		System.arraycopy(array, 0, toHold, 0, size);
@@ -219,7 +206,6 @@ public class MyArrayList<E> implements ListADT<E> {
 			pos++;
 			return toReturn;
 		}
-
 	}
 
 }

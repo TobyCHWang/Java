@@ -1,93 +1,136 @@
 package utilities;
 
+import java.lang.reflect.Array;
 import java.util.EmptyStackException;
+import java.util.NoSuchElementException;
 
 public class MyStack<E> implements StackADT<E> {
+
 	private MyArrayList<E> list;
-	
+
 	public MyStack() {
-		list=new MyArrayList<>();
+		list = new MyArrayList<>();
 	}
-	
+
 	@Override
-	public boolean push(E toPush) throws NullPointerException {
-		return list.add(toPush);
+	public void push(E toPush) throws NullPointerException {
+		list.add(toPush);
 	}
-	
 
 	@Override
 	public E pop() throws EmptyStackException {
-		return list.remove(list.size()-1);
+		if (list.size() == 0) {
+			throw new EmptyStackException();
+		}
+		return list.remove(list.size() - 1);
 	}
 
 	@Override
 	public E peek() throws EmptyStackException {
-		return list.get(list.size()-1);
+		if (list.size() == 0) {
+			throw new EmptyStackException();
+		}
+		return list.get(list.size() - 1);
 	}
 
 	@Override
 	public boolean equals(StackADT<E> that) throws NullPointerException {
-		boolean condition=false;
-		
-		for(int i=list.size()-1;i>=0;i--) {
-			if(list.get(i).equals(that.peek())) {
-				condition=true;
-				that.pop();
-			}else {
-				condition=false;
+		if (this == that) {
+			return true;
+		}
+		if (list.size() != that.size()) {
+			return false;
+		}
+		E temp = null;
+		Iterator list_it = list.iterator();
+		Iterator that_it = that.iterator();
+		while (list_it.hasNext()) {
+			if (!list_it.next().equals(that_it.next())) {
+				return false;
 			}
 		}
-		
-		
-		return condition;
+		return true;
 	}
-
+	
 	@Override
 	public Iterator<E> iterator() {
-		return list.iterator();
+		return new ArrayBasedIterator();
 	}
 
-	@Override
-	public E[] toArray(E[] copy) throws NullPointerException {
-		for(int i=0;i<list.size()/2;i++) {
-			E temp=list.get(i);
-			list.set(i, list.get(list.size()-i-1));
-			list.set(list.size()-i-1, temp);
+	/**************************************************
+	 * INNER CLASS
+	 **************************************************/
+
+	private class ArrayBasedIterator implements Iterator<E> {
+		private int pos;
+		private E[] copy;
+
+		public ArrayBasedIterator() {
+			copy = (E[]) new Object[size()];
+			for (int i = 0; i < size(); i++) {
+				copy[i] = list.get(size() - 1 - i);
+			}
 		}
-		System.arraycopy(list, 0, copy, 0, list.size());
-		return copy;
+
+		@Override
+		public boolean hasNext() {
+			return pos < size();
+		}
+
+		@Override
+		public E next() throws NoSuchElementException {
+			if (pos >= size()) {
+				throw new NoSuchElementException();
+			}
+			
+			E toReturn = list.get(size() -1- pos);
+			return toReturn;
+		}
 	}
 
 	@Override
 	public Object[] toArray() {
-		for(int i=0;i<list.size()/2;i++) {
-			E temp=list.get(i);
-			list.set(i, list.get(list.size()-i-1));
-			list.set(list.size()-i-1, temp);
+//		return list.toArray();
+		Object[] toHold = (E[]) new Object[this.size()];
+		for (int i = 0; i < toHold.length; i++) {
+			toHold[i] = list.get(size() - 1 - i);
 		}
-		
-		
-		return list.toArray();
+		return toHold;
 	}
 
 	@Override
-	public int search(E obj) throws NullPointerException {
-		for(int i=0;i<list.size();i++) {
-			if(list.get(i)==obj) {
-				return i;
+	public E[] toArray(E[] copy) throws NullPointerException {
+//		return list.toArray(copy);
+		if (copy == null) {
+			throw new NullPointerException();
+		}
+		if (copy.length < this.size()) {
+			copy = (E[]) Array.newInstance(list.get(0).getClass(), this.size());
+		}
+		if (!list.isEmpty()) {
+			for (int i = 0; i < copy.length; i++) {
+				copy[i] = list.get(size() - 1 - i);
+			}
+		}
+		return copy;
+	}
+
+	@Override
+	public int search(E toSearch) throws NullPointerException {
+		if (toSearch == null) {
+			throw new NullPointerException();
+		}
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i) == toSearch) {
+				return size() - i;
 			}
 		}
 		return -1;
 	}
 
 	@Override
-	public boolean contains(E obj) throws NullPointerException {
-		return list.contains(obj);
-	}
-
-	@Override
-	public boolean isEmpty() {
-		return (list.size()==0);
+	public boolean contains(E toFind) throws NullPointerException {
+		return list.contains(toFind);
 	}
 
 	@Override
@@ -96,18 +139,13 @@ public class MyStack<E> implements StackADT<E> {
 	}
 
 	@Override
-	public void clear() {
-	   list.clear();
-			
+	public boolean isEmpty() {
+		return list.isEmpty();
 	}
 
+	@Override
+	public void clear() {
+		list.clear();
+	}
 
-
-	
-
-
-
-	
-	
-	
 }
