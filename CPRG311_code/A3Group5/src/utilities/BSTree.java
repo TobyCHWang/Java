@@ -1,5 +1,7 @@
 package utilities;
 
+import java.util.NoSuchElementException;
+
 import exceptions.TreeException;
 import utilities.BSTreeNode;
 
@@ -56,9 +58,9 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT<E> {
 		
 		while(current !=null) {
 			if(entry.compareTo(current.getElement())<0) {
-				current.setLeft(current);
+				current=current.getLeft();
 			}else if(entry.compareTo(current.getElement())>0) {
-				current.setRight(current);
+				current=current.getRight();
 			}else {
 				return true;
 			}
@@ -74,9 +76,9 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT<E> {
 		
 		while(current !=null) {
 			if(entry.compareTo(current.getElement())<0) {
-				current.setLeft(current);
+				current=current.getLeft();
 			}else if(entry.compareTo(current.getElement())>0) {
-				current.setRight(current);
+				current=current.getRight();
 			}else {
 				return current;
 			}
@@ -121,21 +123,173 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT<E> {
 
 	@Override
 	public Iterator<E> inorderIterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new InorderIterator();
 	}
 
 	@Override
 	public Iterator<E> preorderIterator() {
-		
-
-		return null;
+		return new PreorderIterator();
 	}
 
 	@Override
 	public Iterator<E> postorderIterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new PostorderIterator();
+	}
+	
+	/**************************************************
+	 * INNER CLASS InorderIterator
+	 **************************************************/
+       private class InorderIterator implements Iterator<E>{
+		
+		private MyStack<BSTreeNode<E>> nodeStack;
+		private BSTreeNode<E> currentNode;
+		
+		public InorderIterator(){
+            nodeStack = new MyStack<>();
+            currentNode = root;
+        }
+		
+		
+		@Override
+		public boolean hasNext() {
+			return !nodeStack.isEmpty() || (currentNode != null);
+		}
+		@Override
+		public E next() throws NoSuchElementException {
+			BSTreeNode<E> nextNode = null;
+
+            // Find leftmost node with no left child
+            while (currentNode != null)
+            {
+                nodeStack.push(currentNode);
+                currentNode = currentNode.getLeft();
+            }
+
+            // Get leftmost node, then move to its right subtree
+            if (!nodeStack.isEmpty())
+            {
+                nextNode = nodeStack.pop();
+                assert nextNode != null; // Since nodeStack was not empty
+                                         // before the pop
+                currentNode = nextNode.getRight();
+            }
+            else
+                throw new NoSuchElementException();
+
+            return nextNode.getElement(); 
+		}
+   }
+	
+	/**************************************************
+	 * INNER CLASS PreorderIterator
+	 **************************************************/
+	private class PreorderIterator implements Iterator<E>{
+		
+		private MyStack<BSTreeNode<E>> nodeStack;
+		private BSTreeNode<E> currentNode;
+		
+		public PreorderIterator(){
+            nodeStack = new MyStack<>();
+            if (root != null)
+                nodeStack.push(root);
+        }
+		
+		@Override
+		public boolean hasNext() {
+			return !nodeStack.isEmpty();
+		}
+		@Override
+		public E next() throws NoSuchElementException {
+			BSTreeNode<E> nextNode;
+            
+            if (hasNext())
+            {
+                nextNode = nodeStack.pop();
+                BSTreeNode<E> leftChild = nextNode.getLeft();
+                BSTreeNode<E> rightChild = nextNode.getRight();
+                
+                // Push into stack in reverse order of recursive calls
+                if (rightChild != null)
+                    nodeStack.push(rightChild);
+                    
+                if (leftChild != null)
+                    nodeStack.push(leftChild);
+            }
+            else
+            {
+                throw new NoSuchElementException();
+            }
+        
+            return nextNode.getElement();
+		}
+	}
+	
+	/**************************************************
+	 * INNER CLASS PostorderIterator
+	 **************************************************/
+	
+	private class PostorderIterator implements Iterator<E>{
+		
+		private MyStack<BSTreeNode<E>> nodeStack;
+		private BSTreeNode<E> currentNode;
+		
+		 public PostorderIterator(){
+	            nodeStack = new MyStack<>();
+	            currentNode = root;
+	        }
+		
+		
+		@Override
+		public boolean hasNext() {
+			return !nodeStack.isEmpty() || (currentNode != null);
+		}
+
+		@Override
+		public E next() throws NoSuchElementException {
+			boolean foundNext = false;
+           BSTreeNode<E> leftChild, rightChild, nextNode = null;
+         
+            // Find leftmost leaf
+            while (currentNode != null)
+            {
+                nodeStack.push(currentNode);
+                leftChild = currentNode.getLeft();
+                if (leftChild == null)
+                   currentNode = currentNode.getRight();
+                else
+                   currentNode = leftChild;
+            }
+         
+            // Stack is not empty either because we just pushed a node, or
+            // it wasn't empty to begin with since hasNext() is true.
+            // But Iterator specifies an exception for next() in case
+            // hasNext() is false.
+         
+            if (!nodeStack.isEmpty())
+            {
+                nextNode = nodeStack.pop();
+                // nextNode != null since stack was not empty before pop
+                
+                BSTreeNode<E> parent = null;
+                if (!nodeStack.isEmpty())
+                {
+                   parent = nodeStack.peek();
+                   if (nextNode == parent.getLeft())
+                      currentNode = parent.getRight();
+                   else
+                      currentNode = null;
+                }
+                else
+                   currentNode = null;
+            }
+            else
+            {
+                throw new NoSuchElementException();
+            }
+         
+            return nextNode.getElement();
+		}
+		
 	}
 		
 
