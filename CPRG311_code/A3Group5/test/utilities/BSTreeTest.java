@@ -5,6 +5,9 @@ package utilities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.NoSuchElementException;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -177,13 +180,35 @@ class BSTreeTest {
 		tree.add("C");
 		assertEquals(3, tree.size());
 	}
+	
+	/**
+	 * Test method for {@link utilities.MyDLL#iterator()}.
+	 */
+	@Test
+	void testInorderIteratorEmpty() {
+		Iterator<String> it = tree.inorderIterator();
+		assertFalse(it.hasNext());
+		assertThrows(NoSuchElementException.class, () -> {
+			it.next();
+		});
+	}
 
 	/**
 	 * Test method for {@link utilities.BSTree#inorderIterator()}.
 	 */
 	@Test
 	void testInorderIterator() {
-		fail("Not yet implemented");
+		ArrayList<String> arrayList=new ArrayList<>();
+		tree.add("B");
+		tree.add("A");
+		tree.add("C");
+		Iterator<String> it = tree.inorderIterator();
+		while (it.hasNext()) {
+			arrayList.add(it.next());
+		}
+		assertEquals("A", arrayList.get(0));
+		assertEquals("B", arrayList.get(1));
+		assertEquals("C", arrayList.get(2));
 	}
 
 	/**
@@ -191,7 +216,17 @@ class BSTreeTest {
 	 */
 	@Test
 	void testPreorderIterator() {
-		fail("Not yet implemented");
+		ArrayList<String> arrayList=new ArrayList<>();
+		tree.add("B");
+		tree.add("A");
+		tree.add("C");
+		Iterator<String> it = tree.preorderIterator();
+		while (it.hasNext()) {
+			arrayList.add(it.next());
+		}
+		assertEquals("B", arrayList.get(0));
+		assertEquals("A", arrayList.get(1));
+		assertEquals("C", arrayList.get(2));
 	}
 
 	/**
@@ -199,7 +234,17 @@ class BSTreeTest {
 	 */
 	@Test
 	void testPostorderIterator() {
-		fail("Not yet implemented");
+		ArrayList<String> arrayList=new ArrayList<>();
+		tree.add("B");
+		tree.add("A");
+		tree.add("C");
+		Iterator<String> it = tree.postorderIterator();
+		while (it.hasNext()) {
+			arrayList.add(it.next());
+		}
+		assertEquals("A", arrayList.get(0));
+		assertEquals("C", arrayList.get(1));
+		assertEquals("B", arrayList.get(2));
 	}
 
 }
