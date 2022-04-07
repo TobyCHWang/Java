@@ -1,6 +1,7 @@
 package utilities;
 
 import java.util.NoSuchElementException;
+import java.util.Stack;
 
 import exceptions.TreeException;
 import utilities.BSTreeNode;
@@ -141,11 +142,11 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT<E> {
 	 **************************************************/
        private class InorderIterator implements Iterator<E>{
 		
-		private MyStack<BSTreeNode<E>> nodeStack;
+		private Stack<BSTreeNode<E>> nodeStack;
 		private BSTreeNode<E> currentNode;
 		
 		public InorderIterator(){
-            nodeStack = new MyStack<>();
+            nodeStack = new Stack<>();
             currentNode = root;
         }
 		
@@ -185,11 +186,11 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT<E> {
 	 **************************************************/
 	private class PreorderIterator implements Iterator<E>{
 		
-		private MyStack<BSTreeNode<E>> nodeStack;
+		private Stack<BSTreeNode<E>> nodeStack;
 		private BSTreeNode<E> currentNode;
 		
 		public PreorderIterator(){
-            nodeStack = new MyStack<>();
+            nodeStack = new Stack<>();
             if (root != null)
                 nodeStack.push(root);
         }
@@ -230,11 +231,11 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT<E> {
 	
 	private class PostorderIterator implements Iterator<E>{
 		
-		private MyStack<BSTreeNode<E>> nodeStack;
+		private Stack<BSTreeNode<E>> nodeStack;
 		private BSTreeNode<E> currentNode;
 		
 		 public PostorderIterator(){
-	            nodeStack = new MyStack<>();
+	            nodeStack = new Stack<>();
 	            currentNode = root;
 	        }
 		
