@@ -56,14 +56,16 @@ public class WordTracker {
 		System.out.println("Enter file location: ");
 		String fileLoc = input.nextLine();
 		File file = new File(fileLoc);
+		
 		BufferedReader fin = new BufferedReader(new FileReader(file));
-		fileName=file.getName();
+		
 		
 		ObjectOutputStream oos = new ObjectOutputStream(
 				new FileOutputStream("res/repository.ser"));
 		
 		
 		while ((line = fin.readLine()) != null) {
+			fileName=file.getName();
 			lineNumberCounter++;
 			aStrings=parseLine(line);
 			for(int i=0;(i<aStrings.length)&&(aStrings[i]!=null);i++) {
@@ -71,22 +73,16 @@ public class WordTracker {
 					continue;
 				}else {
 					wordBsTree.add(new Word(aStrings[i],fileName));
-					arrayList.add(new Word(aStrings[i],lineNumberCounter));
+					arrayList.add(new Word(aStrings[i],lineNumberCounter,fileName));
 					
 				}	
 			}
 		}
 		
 		
-
-		
-		
-		System.out.println(wordBsTree.contains(new Word("zigzag","textfile.txt")));
-		
-		
-		
 		oos.writeObject(wordBsTree);
 		oos.writeObject(arrayList);
+		System.out.println(arrayList.get(0).getFileName());
 		
 		
 		Iterator<Word> arrayListIterator = wordBsTree.inorderIterator();

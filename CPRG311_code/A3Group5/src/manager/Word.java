@@ -26,13 +26,15 @@ public class Word implements Comparable<Word>,Serializable {
 		super();
 		this.value = value;
 		this.fileName=fileName;
+		
 	}
 
 	
-	public Word(String value, int lineNumber) {
+	public Word(String value, int lineNumber, String fileName) {
 		super();
 		this.value=value;
 		this.lineNumber=lineNumber;
+		this.fileName=fileName;
 	}
 
 
