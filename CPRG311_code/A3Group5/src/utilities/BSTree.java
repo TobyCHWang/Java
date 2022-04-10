@@ -71,6 +71,8 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT<E> {
 		return false;
 	}
 
+	
+	
 	@Override
 	public BSTreeNode<E> search(E entry) throws TreeException {
 		BSTreeNode<E> current=root;
@@ -106,8 +108,10 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT<E> {
 					parent = current;
 					current=current.getRight();
 				}
-				else
-					return false; // Duplicate node not inserted
+				else {
+					return false;
+				}
+					
 			}
 			// Create the new node and attach it to the parent
 			if (newEntry.compareTo(parent.getElement()) < 0)
@@ -121,6 +125,8 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT<E> {
 	}
 
 
+	
+	
 
 	@Override
 	public Iterator<E> inorderIterator() {

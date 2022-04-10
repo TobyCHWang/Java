@@ -1,8 +1,20 @@
 package utilities;
 
-public class BSTreeNode<E> {
+import java.io.Serializable;
+
+public class BSTreeNode<E> implements Serializable {
 	private E element;	
-	private BSTreeNode<E> left, right;
+	private static final long serialVersionUID = 2L;
+	
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	private BSTreeNode<E> left;
+	private BSTreeNode<E> right;
 	
 	
 	
