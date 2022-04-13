@@ -23,19 +23,20 @@ public class WordTracker {
     private BSTree<Word> wordBsTree;
     private ArrayList<Word> arrayList;
 	
-	public WordTracker() throws IOException, ClassNotFoundException, TreeException {
+//    res/textfile.txt
+	public WordTracker(String fileName) throws IOException, ClassNotFoundException, TreeException {
 		File f = new File("res/repository.ser");
 		if(f.exists()) {
 			ObjectInputStream ois = new ObjectInputStream(
 					new FileInputStream("res/repository.ser"));
 			wordBsTree=(BSTree<Word>) ois.readObject();
 			arrayList=(ArrayList<Word>) ois.readObject();
-			loadFile();
+			loadFile(fileName);
 			ois.close();
 		}else {
 			wordBsTree=new BSTree<>();
 			arrayList=new ArrayList<>();
-			loadFile();
+			loadFile(fileName);
 		}
 
 		
@@ -44,7 +45,7 @@ public class WordTracker {
 	}
 	
 	//read file
-	private void loadFile() throws IOException, TreeException {
+	private void loadFile(String fileLoc) throws IOException, TreeException {
 		String line;
 		String[] aStrings;
 		int lineNumberCounter = 0;
@@ -52,9 +53,9 @@ public class WordTracker {
 		
 		
 		
-		Scanner input = new Scanner(System.in);
-		System.out.println("Enter file location: ");
-		String fileLoc = input.nextLine();
+//		Scanner input = new Scanner(System.in);
+//		System.out.println("Enter file location: ");
+//		String fileLoc = input.nextLine();
 		File file = new File(fileLoc);
 		
 		BufferedReader fin = new BufferedReader(new FileReader(file));
@@ -82,7 +83,7 @@ public class WordTracker {
 		
 		oos.writeObject(wordBsTree);
 		oos.writeObject(arrayList);
-		System.out.println(arrayList.get(0).getFileName());
+		
 		
 		
 		Iterator<Word> arrayListIterator = wordBsTree.inorderIterator();
